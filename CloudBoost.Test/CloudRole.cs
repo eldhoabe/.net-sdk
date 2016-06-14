@@ -9,10 +9,18 @@ namespace CB.Test
     [TestClass]
     public class CloudRole
     {
+
+        [TestInitialize]
+        public void TestInitalize()
+        {
+            CB.Test.Util.Keys.InitWithMasterKey();
+        }
+
+
         [TestMethod]
         public async Task CreateRole()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var roleName = Util.Methods.MakeString();
             var role = new CB.CloudRole(roleName);
             var response = await role.SaveAsync();
@@ -23,7 +31,7 @@ namespace CB.Test
         [TestMethod]
         public async Task RetrieveRole()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var roleName = Util.Methods.MakeString();
             var role = new CB.CloudRole(roleName);
             var response = await role.SaveAsync();

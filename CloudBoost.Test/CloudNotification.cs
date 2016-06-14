@@ -6,10 +6,17 @@ namespace CB.Test
     [TestClass]
     public class CloudNotification
     {
+
+        [TestInitialize]
+        public void TestInitalize()
+        {
+            CB.Test.Util.Keys.InitWithMasterKey();
+        }
+
         [TestMethod]
         public void subscribeToChannel()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             CB.CloudNotification.On("sample", new Callback(action));
             Assert.IsTrue(true);
         }
@@ -22,14 +29,14 @@ namespace CB.Test
         [TestMethod]
         public void publishDataToChannel()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             CB.CloudNotification.On("sample", new Callback(anotherAction));
             CB.CloudNotification.Publish("sample", "data");
         }
 
         void anotherAction(Object result)
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             if (result.ToString() == "data")
             {
                 Assert.IsTrue(true);
@@ -43,7 +50,7 @@ namespace CB.Test
         [TestMethod]
         public void shouldStopListeningChannel()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             CB.CloudNotification.Off("sample");
             Assert.IsTrue(true);
         }

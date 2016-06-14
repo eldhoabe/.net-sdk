@@ -10,17 +10,24 @@ namespace CB.Test
     [TestClass]
     public class CloudQuery
     {
+
+        [TestInitialize]
+        public void TestInitalize()
+        {
+            CB.Test.Util.Keys.InitWithClientKey();
+            CB.Test.Util.Keys.InitWithMasterKey();
+            
+        }
+
         [TestMethod]
         public void x001_InitAppWithClientKey()
         {
-            CB.Test.Util.Keys.InitWithClientKey();
             Assert.IsTrue(true);
         }
 
         [TestMethod]
         public async Task SaveObject()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "ranjeet");
             await obj.SaveAsync();
@@ -37,7 +44,6 @@ namespace CB.Test
         [TestMethod]
         public async Task Find()
         {
-            CB.Test.Util.Keys.InitWithClientKey();
             var obj = new CB.CloudObject("Custom1");
             obj.Set("newColumn", "sample");
             obj.Set("description", "sample2");
@@ -67,7 +73,6 @@ namespace CB.Test
         [TestMethod]
         public async Task ContainedInWithId()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj1 = new CB.CloudObject("Custom1");
             obj1.Set("newColumn", "sample");
             obj1.Set("description", "sample2");
@@ -94,7 +99,6 @@ namespace CB.Test
         [TestMethod]
         public async Task ColumnShouldWorkOnDistinct()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("Custom1");
             obj.Set("newColumn", "sample");
             obj.Set("description", "sample2");
@@ -115,7 +119,6 @@ namespace CB.Test
         [TestMethod]
         public async Task ColumnNameNotEqualTo()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "sampleName");
             await obj.SaveAsync();
@@ -138,7 +141,6 @@ namespace CB.Test
         [TestMethod]
         public async Task FindDataWithId()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "sampleName");
             await obj.SaveAsync();
@@ -158,7 +160,6 @@ namespace CB.Test
         [TestMethod]
         public async Task FindItemWithId()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "sampleName");
             await obj.SaveAsync();
@@ -178,7 +179,6 @@ namespace CB.Test
         [TestMethod]
         public async Task FindOneQuery()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "sampleName");
             await obj.SaveAsync();
@@ -198,7 +198,6 @@ namespace CB.Test
         [TestMethod] //273
         public async Task RetrieveDataWithValue()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "sampleName");
             await obj.SaveAsync();
@@ -225,7 +224,6 @@ namespace CB.Test
         [TestMethod]
         public async Task RetrieveList()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             string[] list = { "java", "python" };
             obj.Set("subject", list);
@@ -257,7 +255,6 @@ namespace CB.Test
         [TestMethod]
         public async Task StartsWithTest()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.StartsWith("name", "s");
             var response = await query.FindAsync();
@@ -283,7 +280,6 @@ namespace CB.Test
         [TestMethod]
         public async Task GreaterThanTest()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.GreaterThan("age", 10);
             var response = await query.FindAsync();
@@ -308,7 +304,6 @@ namespace CB.Test
         [TestMethod]
         public async Task GreaterThanEqualTo()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.GreaterThanEqualTo("age", 15);
             var response = await query.FindAsync();
@@ -333,7 +328,6 @@ namespace CB.Test
         [TestMethod]
         public async Task LessThan()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.LessThan("age", 40);
             var response = await query.FindAsync();
@@ -358,7 +352,6 @@ namespace CB.Test
         [TestMethod]
         public async Task LessThanEqualTo()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.LessThanEqualTo("age", 15);
             var response = await query.FindAsync();
@@ -383,7 +376,6 @@ namespace CB.Test
         [TestMethod]
         public async Task RetrieveDataWithParticularValue()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj1 = new CB.CloudQuery("student1");
             string[] list = { "java", "python" };
             obj1.EqualTo("subject", list);
@@ -427,7 +419,6 @@ namespace CB.Test
         [TestMethod]
         public async Task AscendingOrder()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.OrderByAsc("age");
             var response = await query.FindAsync();
@@ -444,7 +435,6 @@ namespace CB.Test
         [TestMethod]
         public async Task DescendingOrder()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.OrderByDesc("age");
             var response = await query.FindAsync();
@@ -472,7 +462,6 @@ namespace CB.Test
         [TestMethod]
         public async Task DistinctTest()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             var response = await query.DistinctAsync("age");
             List<int> age = new List<int>();
@@ -489,7 +478,6 @@ namespace CB.Test
         [TestMethod]
         public async Task FindByIdTest()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj = new CB.CloudObject("student1");
             obj.Set("name", "abcd");
             await obj.SaveAsync();
@@ -528,7 +516,6 @@ namespace CB.Test
         [TestMethod]
         public async Task DoesNotExists()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var query = new CB.CloudQuery("student1");
             query.DoesNotExist("age");
             var response = await query.FindAsync();
@@ -549,7 +536,6 @@ namespace CB.Test
         [TestMethod]
         public async Task RelationQueryTest()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj1 = new CB.CloudObject("Hostel");
             obj1.Set("room", 123);
             await obj1.SaveAsync();
@@ -577,7 +563,6 @@ namespace CB.Test
         [TestMethod]
         public async Task QueryOverBooleanDataType()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             var obj1 = new CB.CloudObject("Custom1");
             obj1.Set("newColumn", false);
             await obj1.SaveAsync();
@@ -597,7 +582,6 @@ namespace CB.Test
         [TestMethod]
         public async Task GetEncryptedPassword()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
             string username = Util.Methods.MakeEmail();
             var obj = new CB.CloudObject("User");
             obj.Set("username", username);
@@ -628,7 +612,7 @@ namespace CB.Test
         [TestMethod]
         public async Task GetEncryptedPasswordOverORQuery()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var username = Util.Methods.MakeEmail();
             var obj = new CB.CloudObject("User");
             obj.Set("username", username);
@@ -661,7 +645,7 @@ namespace CB.Test
         [TestMethod]
         public async Task DoNotEncryptAlreadyEncryptedPassword()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             string username = Util.Methods.MakeEmail();
 
             var obj = new CB.CloudObject("User");

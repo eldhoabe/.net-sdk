@@ -9,12 +9,22 @@ namespace CB.Test
     [TestClass]
     public class CloudUser
     {
+
         protected string username = Util.Methods.MakeString();
         protected string password = "abcd";
+
+        [TestInitialize]
+        public void TestInitalize()
+        {
+            CB.Test.Util.Keys.InitWithMasterKey();
+        }
+
+
+        
         [TestMethod]
         public async Task CreateNewUser()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var obj = new CB.CloudUser();
             obj.Set("username", Util.Methods.MakeEmail());
             obj.Set("password", Util.Methods.MakeEmail());
@@ -33,7 +43,7 @@ namespace CB.Test
         [TestMethod]
         public async Task CreateUserAndGetVersion()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             username = Util.Methods.MakeString();
             var obj = new CB.CloudUser();
             obj.Set("username", Util.Methods.MakeEmail());
@@ -53,7 +63,7 @@ namespace CB.Test
         [TestMethod]
         public async Task QueryOnUser()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             username = Util.Methods.MakeString();
             var obj = new CB.CloudUser();
             obj.Set("username", Util.Methods.MakeEmail());
@@ -75,7 +85,7 @@ namespace CB.Test
         [TestMethod]
         public async Task LoginUser()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var obj = new CB.CloudUser();
             obj.Set("username", CB.Test.Util.Methods.MakeEmail());
             obj.Set("password", CB.Test.Util.Methods.MakeEmail());
@@ -97,7 +107,7 @@ namespace CB.Test
         [TestMethod]
         public async Task AssignRoleToUser()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var roleName = Util.Methods.MakeString();
             var role = new CB.CloudRole(roleName);
             role.Set("name", roleName);
@@ -114,7 +124,7 @@ namespace CB.Test
         [TestMethod]
         public async Task RemoveRoleAssignRoleToUser()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var obj = new CB.CloudUser();
             var roleName = Util.Methods.MakeString();
             var role = new CB.CloudRole(roleName);
@@ -134,7 +144,7 @@ namespace CB.Test
         [TestMethod]
         public async Task ShouldEncryptUserPassword()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var obj = new CB.CloudUser();
             obj.Set("username", CB.Test.Util.Methods.MakeEmail());
             obj.Set("password", CB.Test.Util.Methods.MakeEmail());
@@ -146,7 +156,7 @@ namespace CB.Test
         [TestMethod]
         public async Task CreateNewUserSave()
         {
-            CB.Test.Util.Keys.InitWithMasterKey();
+            
             var obj = new CB.CloudUser();
             obj.Set("username", CB.Test.Util.Methods.MakeEmail());
             obj.Set("password", CB.Test.Util.Methods.MakeEmail());
